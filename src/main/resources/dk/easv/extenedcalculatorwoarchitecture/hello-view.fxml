@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="470.0" prefWidth="357.0" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.extenedcalculatorwoarchitecture.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="txtResult" alignment="TOP_RIGHT" editable="false" focusTraversable="false" text="0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </TextField>
+            <Label fx:id="lblOperatorStr" alignment="TOP_RIGHT" prefHeight="97.0" prefWidth="316.0" text="operators" textFill="#aecdd3">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <padding>
+                  <Insets right="10.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblCalculationStr" alignment="BOTTOM_LEFT" layoutX="11.0" layoutY="10.0" prefHeight="97.0" prefWidth="316.0" text="calculationString" textFill="#aecdd3">
+               <padding>
+                  <Insets bottom="5.0" left="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </StackPane>
+      <HBox prefHeight="50.0" prefWidth="317.0">
+         <children>
+            <Button fx:id="btnClear" mnemonicParsing="false" onAction="#onClearAction" prefHeight="50.0" prefWidth="75.0" text="C">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnPlusMinus" mnemonicParsing="false" onAction="#onPlusMinusAction" prefHeight="50.0" prefWidth="75.0" text="±">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPercentage" mnemonicParsing="false" onAction="#onPercentageAction" prefHeight="50.0" prefWidth="75.0" text="\%">
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnDivide" mnemonicParsing="false" onAction="#onDivideAction" prefHeight="50.0" prefWidth="75.0" text="/">
+               <HBox.margin>
+                  <Insets left="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnSeven" mnemonicParsing="false" onAction="#onSevenAction" prefHeight="50.0" prefWidth="75.0" text="7">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEight" mnemonicParsing="false" onAction="#onEightAction" prefHeight="50.0" prefWidth="75.0" text="8">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnNine" mnemonicParsing="false" onAction="#onNineAction" prefHeight="50.0" prefWidth="75.0" text="9">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMultiply" mnemonicParsing="false" onAction="#onMultiplyAction" prefHeight="50.0" prefWidth="75.0" text="X">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnFour" mnemonicParsing="false" onAction="#onFourAction" prefHeight="50.0" prefWidth="75.0" text="4">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnFive" mnemonicParsing="false" onAction="#onFiveAction" prefHeight="50.0" prefWidth="75.0" text="5">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSix" mnemonicParsing="false" onAction="#onSixAction" prefHeight="50.0" prefWidth="75.0" text="6">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMinus" mnemonicParsing="false" onAction="#onMinusAction" prefHeight="50.0" prefWidth="75.0" text="-">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btnOne" mnemonicParsing="false" onAction="#onOneAction" prefHeight="50.0" prefWidth="75.0" text="1">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTwo" mnemonicParsing="false" onAction="#onTwoAction" prefHeight="50.0" prefWidth="75.0" text="2">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnThree" mnemonicParsing="false" onAction="#onThreeAction" prefHeight="50.0" prefWidth="75.0" text="3">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPlus" mnemonicParsing="false" onAction="#onPlusAction" prefHeight="50.0" prefWidth="75.0" text="+">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="75.0">
+         <children>
+            <Button fx:id="btnZero" mnemonicParsing="false" onAction="#onZeroAction" prefHeight="50.0" prefWidth="75.0" text="0">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnComma" mnemonicParsing="false" onAction="#onCommaAction" prefHeight="50.0" prefWidth="75.0" text=",">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEqual" mnemonicParsing="false" onAction="#onEqualAction" prefHeight="50.0" prefWidth="153.0" text="=">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
