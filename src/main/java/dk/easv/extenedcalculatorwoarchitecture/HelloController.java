@@ -1,5 +1,6 @@
 package dk.easv.extenedcalculatorwoarchitecture;
 
+import dk.easv.bll.Calculator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,9 +21,7 @@ public class HelloController {
     @FXML
     private Label lblCalculationStr;
 
-    private ArrayList<Double> numbers = new ArrayList<Double>();
-
-    private ArrayList<String> operators = new ArrayList<String>();
+    private Calculator CalculatorLogic = new Calculator();
 
     DecimalFormat df = new DecimalFormat("#,###.##");
 
@@ -36,8 +35,7 @@ public class HelloController {
 
     public void onClearAction(ActionEvent actionEvent)
     {
-        numbers.clear();
-        operators.clear();
+        CalculatorLogic.clear();
         lblOperatorStr.setText("");
         txtResult.setText("0");
         lblCalculationStr.setText("");
@@ -143,18 +141,16 @@ public class HelloController {
         setResultDisplay(",");
     }
 
-    public void onEqualAction(ActionEvent actionEvent)
-    {
-        numbers.add(Double.parseDouble(txtResult.getText()));
+    public void onEqualAction(ActionEvent actionEvent) throws Exception {
+        CalculatorLogic.addNumber(Double.parseDouble(txtResult.getText()));
         lblCalculationStr.setText(generateCalculationString());
-        double result = calculateSequence();
+        double result = CalculatorLogic.calculateSequence();
 
         String dfResult = df.format(result);
 
         txtResult.setText(dfResult);
 
-        numbers.clear();
-        operators.clear();
+        CalculatorLogic.clear();
         lblOperatorStr.setText("=");
 
     }
@@ -171,108 +167,24 @@ public class HelloController {
         }
     }
 
-    private void operatorAction(String operator)
+    public void operatorAction(String operator)
     {
-        if(operator != "%")
+        double number = Double.parseDouble(txtResult.getText().replace(',', '.'));
+        lblOperatorStr.setText(operator == "*" ? "X" : operator);
+        txtResult.clear();
+        double result = CalculatorLogic.operatorAction(operator, number);
+        if(!Double.isNaN(result))
         {
-            double number = Double.parseDouble(txtResult.getText().replace(',', '.'));
-            operators.add(operator);
-            lblOperatorStr.setText(operator == "*" ? "X" : operator);
-            numbers.add(number);
-            txtResult.clear();
+            txtResult.setText(String.valueOf(result));
         }
-        else
-        {
-            String lastOperator = operators.getLast();
-            int percentageNumber = Integer.parseInt(txtResult.getText());
-
-            if(lastOperator.equals("-"))
-            {
-                double calculation = calculate("/", percentageNumber, 100);
-                numbers.add(calculation*10);
-                operators.set(operators.size()-1, "-");
-                lblOperatorStr.setText("-");
-                txtResult.setText(String.valueOf(calculation));
-            }
-            else
-            {
-                txtResult.setText(String.valueOf(
-                        (calculate("+",
-                                calculate("/", percentageNumber, 100), 1)
-                        )
-                ));
-                operators.set(operators.size()-1, "*");
-                lblOperatorStr.setText("X");
-            }
-        }
-    }
-
-    private double calculate(String operator, double value1, double value2)
-    {
-        switch (operator)
-        {
-            case "+":
-                return value1 + value2;
-
-            case "-":
-                return value1 - value2;
-
-            case "*":
-                return value1 * value2;
-
-            case "/":
-                return value1 / value2;
-
-            default:
-                return -990.990;
-        }
-    }
-
-    private double calculateSequence()
-    {
-        // Check if the numbers list are 1 size bigger than the operators list.
-        if (numbers.size() != operators.size() + 1)
-        {
-            txtResult.setText("Invalid input: number of operators should be one less than the number of numbers");
-        }
-
-        double result = numbers.get(0);
-
-        //Checks of the multiply or division operation exists.
-        if((operators.contains("*") || operators.contains("/")) && numbers.size()>=3)
-        {
-            // Run through all operators.
-            for(int i = 0; i<= operators.size()-1; i++)
-            {
-                // if either multiplicity or division; multiply or divide number at index i with i+1 and place the calculation at index i and remove index i+1.
-                if(operators.get(i) == "*")
-                {
-                    numbers.set(i, numbers.get(i) * numbers.get(i+1));
-                    numbers.remove(i+1);
-                    operators.remove(i);
-                    i = i -1; // Reduction in the i variable, because we have removed an element, to ensure all elements will be traversed.
-                }
-                else if(operators.get(i) == "/")
-                {
-                    numbers.set(i, numbers.get(i) / numbers.get(i+1));
-                    numbers.remove(i+1);
-                    operators.remove(i);
-                    i = i -1; // Reduction in the i variable, because we have removed an element, to ensure all elements will be traversed.
-                }
-            }
-        }
-        // Now run through the new set of numbers and do addition and minus operation.
-        for (int i = 0; i < operators.size(); i++)
-        {
-            result = calculate(operators.get(i), numbers.get(i), numbers.get(i + 1));
-        }
-
-        return result;
     }
 
     private String generateCalculationString()
     {
         String calculationString = new String();
+        ArrayList<Double> numbers = CalculatorLogic.getNumbers();
+        ArrayList<String> operators = CalculatorLogic.getOperators();
+
         for(int i = 0; i<=numbers.size()-1; i++)
         {
             if(operators.size() > i)
