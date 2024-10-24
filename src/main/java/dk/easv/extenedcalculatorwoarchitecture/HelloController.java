@@ -1,14 +1,17 @@
 package dk.easv.extenedcalculatorwoarchitecture;
 
 import dk.easv.bll.Calculator;
+import dk.easv.bll.MemoryLogic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javax.print.DocFlavor;
+import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class HelloController {
 
@@ -21,7 +24,11 @@ public class HelloController {
     @FXML
     private Label lblCalculationStr;
 
+    @FXML
+    private ListView lstHistory;
+
     private Calculator CalculatorLogic = new Calculator();
+    private MemoryLogic MemoryEngine = new MemoryLogic();
 
     DecimalFormat df = new DecimalFormat("#,###.##");
 
@@ -31,6 +38,19 @@ public class HelloController {
     {
         lblOperatorStr.setText("");
         lblCalculationStr.setText("");
+
+        reloadHistory();
+
+    }
+
+    public void reloadHistory()
+    {
+        lstHistory.getItems().clear();
+        List<String> historyList = MemoryEngine.loadMemory(true);
+        for(int i = 0; i<=historyList.size()-1; i=i+1)
+        {
+            lstHistory.getItems().add(historyList.toArray()[i]);
+        }
     }
 
     public void onClearAction(ActionEvent actionEvent)
@@ -196,6 +216,29 @@ public class HelloController {
                 calculationString = calculationString.concat(df.format(numbers.get(i)));
             }
         }
+        MemoryEngine.addToMemory(calculationString);
+        reloadHistory();
         return calculationString;
+    }
+
+    public void onBtnClearHistory(ActionEvent actionEvent)
+    {
+        Optional<ButtonType> message = showMessageBox(Alert.AlertType.CONFIRMATION, "Are you sure?", "This will clear your history", "This will clear your history. If you press Yes, it will be cleared and cannot be recalled.");
+        if(message.get() == ButtonType.OK)
+        {
+            if (this.MemoryEngine.clearMemory())
+            {
+                reloadHistory();
+            }
+        }
+    }
+
+    private Optional<ButtonType> showMessageBox(Alert.AlertType alertType, String title, String headerText, String messageText)
+    {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(messageText);
+        return alert.showAndWait();
     }
 }
