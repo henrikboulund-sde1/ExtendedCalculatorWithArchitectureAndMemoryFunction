@@ -57,7 +57,7 @@ public class MemoryData {
         }
         catch(IOException e)
         {
-            return true;
+            return false;
         }
     }
 
